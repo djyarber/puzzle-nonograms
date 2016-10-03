@@ -97,16 +97,12 @@ end
 
 # Check if a box is filled
 def is_there_a_check_on (checkbox)
-  checkbox.src.scan(/\w.gif/)[0].split('').first == 'y' ? true : false
+  checkbox.src.scan(/\w.gif/)[0].split('').first == 'y'
 end
 
 # Get full row/column of checked unchecked boxes
 def box_set_results_for(set_of_boxes)
-  box_set = []
-  set_of_boxes.each do |box_in_set|
-    is_there_a_check_on(box_in_set) ? box_set.push(true) : box_set.push(false)
-  end
-  box_set
+  set_of_boxes.map { |box| is_there_a_check_on(box) }
 end
 
 
@@ -114,10 +110,35 @@ end
 # Solve the Puzzle #
 ####################
 
+# board.each do |set|
+#   array = numbers_for(set[0])
+#
+#   # Differentiate logic depending on how many numbers there are
+#   case array.length
+#     when 0
+#       puts('There are zero numbers in the set')
+#       binding.pry
+#     when 1
+#       # Check for full length fills
+#       numbers_for(set[0]) == board_size ? set[1].each { |box| box.click } : puts("Nope, nothin'")
+#
+#     when 2
+#
+#     when 3
+#
+#   end
+# end
+#
+# binding.pry
+
+####################
+
 board.each do |set|
 
   # Check for full length fills
   numbers_for(set[0]) == board_size ? set[1].each { |box| box.click } : puts("Nope, nothin'")
+
+  ## refactored to this point
 
   # Do this if there is only 1 number
   if numbers_for(set[0]).length == 1
@@ -150,24 +171,27 @@ board.each do |set|
     end
   end
 
-  # Do this if there are multiple numbers
-  if numbers_for(set[0]).length > 1
-    array = numbers_for(set[0])
-
-    case array.length
-      when 1
-      when 2
-        array.insert(1, 0)
-      when 3
-        array.insert(1, 0)
-        array.insert(3, 0)
-    end
-
-    binding.pry
-  end
+  # # Do this if there are multiple numbers
+  # if numbers_for(set[0]).length > 1
+  #   array = numbers_for(set[0])
+  #
+  #   case array.length
+  #     when 0
+  #
+  #     when 1
+  #
+  #     when 2
+  #       array.insert(1, 0)
+  #     when 3
+  #       array.insert(1, 0)
+  #       array.insert(3, 0)
+  #   end
+  #
+  #   # binding.pry
+  # end
 
 end
 
-binding.pry
+# binding.pry
 
 @browser.close if @browser
