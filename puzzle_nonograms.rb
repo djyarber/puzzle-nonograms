@@ -122,9 +122,10 @@ board.each do |set|
   # Do this if there is only 1 number
   if numbers_for(set[0]).length == 1
 
-    # Set arrays to compare values
     $from_start = []
     $from_end = []
+
+    # Set arrays to compare values
     num = numbers_for(set[0]).first
         num.times do
       $from_start.push(1)
@@ -150,18 +151,23 @@ board.each do |set|
   end
 
   # Do this if there are multiple numbers
-  # if numbers_for(set[0]).length > 1
+  if numbers_for(set[0]).length > 1
+    array = numbers_for(set[0])
+
+    case array.length
+      when 1
+      when 2
+        array.insert(1, 0)
+      when 3
+        array.insert(1, 0)
+        array.insert(3, 0)
+    end
+
+    binding.pry
+  end
 
 end
 
-# binding.pry
+binding.pry
 
 @browser.close if @browser
-
-#######################################
-
-# cross_over value
-# 1,1,1,0,0 crosses over 0,0,1,1,1 at the center point
-# so results will be 0,0,1,0,0
-
-# if arr1[3] == 1 && arr2[3] == 1, then place a check
