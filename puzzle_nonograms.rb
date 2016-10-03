@@ -149,9 +149,12 @@ board.each do |set|
     end
   end
 
+  # Do this if there are multiple numbers
+  # if numbers_for(set[0]).length > 1
+
 end
 
-binding.pry
+# binding.pry
 
 @browser.close if @browser
 
