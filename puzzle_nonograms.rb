@@ -110,66 +110,58 @@ end
 # Solve the Puzzle #
 ####################
 
-# board.each do |set|
-#   array = numbers_for(set[0])
-#
-#   # Differentiate logic depending on how many numbers there are
-#   case array.length
-#     when 0
-#       puts('There are zero numbers in the set')
-#       binding.pry
-#     when 1
-#       # Check for full length fills
-#       numbers_for(set[0]) == board_size ? set[1].each { |box| box.click } : puts("Nope, nothin'")
-#
-#     when 2
-#
-#     when 3
-#
-#   end
-# end
-#
-# binding.pry
+board.each do |set|
+  array = numbers_for(set[0])
+
+  # Differentiate logic depending on how many numbers there are
+  case array.length
+    when 0
+      puts('There are zero numbers in the set')
+      binding.pry
+
+    when 1
+      # Check for full length/size fills
+      numbers_for(set[0]) == board_size ? set[1].each { |box| box.click } : puts("Nope, nothin'")
+
+      $from_start = []
+      $from_end = []
+
+      # Set arrays to compare values
+      num = numbers_for(set[0]).first
+      num.times do
+        $from_start.push(1)
+        $from_end.unshift(1)
+      end
+      (board_size - num).times do
+        $from_start.push(0)
+        $from_end.unshift(0)
+      end
+
+      # Compare array values for each set and select at overlay
+      value = 0
+      board_size.times do |box_number|
+        case
+          when $from_start[value] == $from_end[value] && $from_start[value] != 0
+            set[1][box_number].src == (no || x)  ? set[1][box_number].click : false
+          else
+            false
+        end
+        value += 1
+      end
+
+    when 2
+
+    when 3
+
+  end
+end
+
+binding.pry
+
+@browser.close if @browser
 
 ####################
 
-board.each do |set|
-
-  # Check for full length fills
-  numbers_for(set[0]) == board_size ? set[1].each { |box| box.click } : puts("Nope, nothin'")
-
-  ## refactored to this point
-
-  # Do this if there is only 1 number
-  if numbers_for(set[0]).length == 1
-
-    $from_start = []
-    $from_end = []
-
-    # Set arrays to compare values
-    num = numbers_for(set[0]).first
-        num.times do
-      $from_start.push(1)
-      $from_end.unshift(1)
-    end
-    (board_size - num).times do
-      $from_start.push(0)
-      $from_end.unshift(0)
-    end
-
-    # Compare array values for each set and select at overlay
-    value = 0
-    board_size.times do |box_number|
-      case
-        when $from_start[value] == $from_end[value] && $from_start[value] != 0
-          set[1][box_number].src == (no || x)  ? set[1][box_number].click : false
-        else
-          false
-      end
-      value += 1
-      sleep(0.1)
-    end
-  end
 
   # # Do this if there are multiple numbers
   # if numbers_for(set[0]).length > 1
@@ -189,9 +181,3 @@ board.each do |set|
   #
   #   # binding.pry
   # end
-
-end
-
-# binding.pry
-
-@browser.close if @browser
