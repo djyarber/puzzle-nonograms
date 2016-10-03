@@ -1,0 +1,5 @@
+AllCops:
+  DefaultFormatter: html
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
