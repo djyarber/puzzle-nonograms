@@ -150,13 +150,14 @@ board.each do |set|
       end
 
     when 2
+      array.insert(1, 0)
 
     when 3
+      array.insert(1, 0)
+      array.insert(3, 0)
 
   end
 end
-
-binding.pry
 
 @browser.close if @browser
 
