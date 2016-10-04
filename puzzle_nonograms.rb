@@ -117,11 +117,11 @@ board.each do |set|
     puts('There are zero numbers in the set')
 
   when 1
-    # Check for full length/size fills
-    numbers_for(set[0]) == board_size ? set[1].each(&:click) : false
-
     from_start = []
     from_end = []
+
+    # Check for full length/size fills
+    numbers_for(set[0]) == board_size ? set[1].each(&:click) : false
 
     # Set arrays to compare values
     num = numbers_for(set[0]).first
@@ -145,7 +145,32 @@ board.each do |set|
     end
 
   when 2
+    from_start = []
+    from_end = []
+
+    # Fill in gaps between numbers with a 0
     array.insert(1, 0)
+      array.each do |number|
+        # Add a 1 n times
+        if number > 0
+          number.times do
+            # Add a 1 to the beginning
+            from_start.push(1)
+            # Add a 1 to the end
+            from_end.unshift(1)
+          end
+        else
+          # Add a 0 to the beginning
+          from_start.push(0)
+          # Add a 0 to the end
+          from_end.unshift(0)
+        end
+      end
+    while from_start.length < board_size
+      from_start.push(0)
+      from_end.unshift(0)
+    end
+    binding.pry
 
   when 3
     array.insert(1, 0)
@@ -155,6 +180,10 @@ board.each do |set|
 end
 
 @browser.close if @browser
+
+# Ruby Array Permutations
+
+# (1..5).to_a
 
 # # Do this if there are multiple numbers
 # if numbers_for(set[0]).length > 1
